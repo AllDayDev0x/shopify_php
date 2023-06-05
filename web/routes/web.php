@@ -149,4 +149,5 @@ Route::post('/api/webhooks', function (Request $request) {
 Route::group(['prefix' => 'api',  'middleware' => 'shopify.auth'], function()
 {
     Route::get('all-products', [HomeController::class,'products']);
+    Route::post('update-product', [HomeController::class,'updateProduct']);
 });
