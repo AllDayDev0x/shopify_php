@@ -158,7 +158,7 @@ export default function HomePage() {
                 body: JSON.stringify({ body: productData })
                });
             const res = await pr.json();
-            if(res.status && res.massege === "success"){
+            if(res.status===200 && res.massege === "success"){
                 getAllProducts();
                 setModalIsOpen(false);
                 setProductId("");
@@ -183,7 +183,7 @@ export default function HomePage() {
                 body: JSON.stringify({ body: productData })
                });
             const res = await pr.json();
-            if(res.status && res.massege === "success"){
+            if(res.status===200 && res.massege === "success"){
                 getAllProducts();
             }
             // setProducts(allProducts);
