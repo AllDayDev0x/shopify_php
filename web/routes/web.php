@@ -150,4 +150,5 @@ Route::group(['prefix' => 'api',  'middleware' => 'shopify.auth'], function()
 {
     Route::get('all-products', [HomeController::class,'products']);
     Route::post('update-product', [HomeController::class,'updateProduct']);
+    Route::post('delete-product', [HomeController::class,'deleteProduct']);
 });

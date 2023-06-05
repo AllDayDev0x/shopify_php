@@ -62,4 +62,21 @@ class HomeController extends Controller
         }
 
     }
+
+    public function deleteProduct(Request $request){
+        $data = $request->input('body');
+        $product_id = $data['productId'];
+        try{
+            $session = $request->get('shopifySession');
+            $shop = $session->getShop();
+
+            $client = new Rest($session->getShop(), $session->getAccessToken());
+            $result = $client->delete("products/$product_id");
+            return response(['status' => 200, 'massege' => 'success']);
+        }
+        catch (Exception $e) {
+            // Handle any errors that occur during the API request
+            return response(['status' => 500, 'message' => $e->getMessage()]);
+        }
+    }
 }

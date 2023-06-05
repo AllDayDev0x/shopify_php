@@ -129,7 +129,6 @@ export default function HomePage() {
     // };
 
     const handleEdit = async (e, pid) => {
-        console.log(pid, "edit");
         const product = products.products.filter((x) => x.id === pid);
         setProductId(product[0].id);
         setProductName(product[0].title);
@@ -137,9 +136,6 @@ export default function HomePage() {
         setModalIsOpen(true);
     };
 
-    const handleDelete = async (e, pid) => {
-        console.log(pid, "delete");
-    };
 
     const handleModalClose = () => {
         setModalIsOpen(false);
@@ -162,12 +158,38 @@ export default function HomePage() {
                 body: JSON.stringify({ body: productData })
                });
             const res = await pr.json();
-            console.log(res)
+            if(res.status && res.massege === "success"){
+                getAllProducts();
+                setModalIsOpen(false);
+                setProductId("");
+                setProductName("");
+                setProductDesc("");
+            }
             // setProducts(allProducts);
         } catch (err) {
             console.log(err);
         }
-        // console.log(JSON.stringify(productData));
+    };
+
+    const handleDelete = async (e, pid) => {
+        e.preventDefault();
+        const productData = {
+            productId: pid,
+        };
+        try {
+            const pr = await fetch("/api/delete-product",{
+                method: 'post',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ body: productData })
+               });
+            const res = await pr.json();
+            if(res.status && res.massege === "success"){
+                getAllProducts();
+            }
+            // setProducts(allProducts);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
